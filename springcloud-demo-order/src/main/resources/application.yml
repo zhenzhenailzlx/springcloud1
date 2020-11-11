@@ -1,0 +1,36 @@
+server:
+  port: 8011
+spring:
+  application:
+    name: order
+
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+    lease-expiration-duration-in-seconds: 20
+    #实例使用ip代替hostName
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    healthcheck:
+      enabled: true
+    registryFetchIntervalSeconds: 10
+    instance-info-replication-interval-seconds: 20
+    initial-instance-info-replication-interval-seconds: 30
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+      #defaultZone: http://eureka0:8000/eureka/,http://eureka1:8001/eureka/,http://eureka2:8002/eureka/
+      
+ribbon:
+  #ribbon负载均衡器通过NIWSDiscoveryPing 检测可用服务的频率，默认30s
+  NFLoadBalancerPingInterval: 2	  
+  #刷新服务端服务器列表频率，默认 30*1000 
+  ServerListRefreshInterval: 2000
+
+
+#超时时间（默认1000，单位：ms）
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 5000
+   
+logging.config: classpath:logback-spring.xml
+   
